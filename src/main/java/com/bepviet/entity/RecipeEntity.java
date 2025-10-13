@@ -3,24 +3,38 @@ package com.bepviet.entity;
 import com.bepviet.enums.Difficulty;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
+import lombok.EqualsAndHashCode;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "recipe")
 @Data
-public class RecipeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@EqualsAndHashCode(callSuper = true, exclude = {"ingredientEntities", "cuisineEntities"})
+public class RecipeEntity extends ContentEntity {
 
     @Column(name = "difficulty")
+    @Enumerated(EnumType.ORDINAL)
     private Difficulty difficulty;
 
-    @Column(name = "image_urls")
-    private List<String> imageUrls;
 
-    @ManyToOne
-    @JoinColumn(name ="user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private UserEntity userEntity;
+
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_cuisine",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "cuisine_id")
+    )
+    private Set<CuisineEntity> cuisineEntities = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_ingredient",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<IngredientEntity> ingredientEntities = new HashSet<>();
 }

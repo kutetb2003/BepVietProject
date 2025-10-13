@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="first_name")
@@ -34,4 +34,7 @@ import java.util.List;
 
     @OneToMany(mappedBy = "userEntity")
     private List<RecipeEntity> recipeEntityList;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<ReviewEntity> reviewEntities;
 }

@@ -24,6 +24,7 @@ import java.util.List;
     private String email;
 
     @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name="password")

@@ -17,9 +17,6 @@ public class RestaurantEntity extends ContentEntity{
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "image_urls")
-    private List<String> imageUrls;
-
     @OneToOne
     @JoinColumn(name="manager_id", referencedColumnName = "id")
     private UserEntity userEntity;

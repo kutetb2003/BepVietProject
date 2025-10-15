@@ -14,7 +14,7 @@ import java.util.Set;
 public class RecipeEntity extends ContentEntity {
 
     @Column(name = "difficulty")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
 

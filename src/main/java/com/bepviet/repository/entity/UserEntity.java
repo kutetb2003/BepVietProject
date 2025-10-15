@@ -1,4 +1,4 @@
-package com.bepviet.entity;
+package com.bepviet.repository.entity;
 
 import com.bepviet.enums.Role;
 import jakarta.persistence.*;

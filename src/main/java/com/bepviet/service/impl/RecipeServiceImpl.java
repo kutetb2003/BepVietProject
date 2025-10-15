@@ -3,8 +3,7 @@ package com.bepviet.service.impl;
 import com.bepviet.builder.RecipeRequestBuilder;
 import com.bepviet.converter.RecipeBuilderConverter;
 import com.bepviet.converter.RecipeDTOConverter;
-import com.bepviet.dto.RecipeDTO;
-import com.bepviet.entity.RecipeEntity;
+import com.bepviet.dto.RecipeDto;
 import com.bepviet.repository.RecipeRepository;
 import com.bepviet.service.RecipeService;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -25,8 +23,8 @@ public class RecipeServiceImpl implements RecipeService {
         this.recipeBuilderConverter = recipeBuilderConverter;
     }
 
-    public List<RecipeDTO> findAll(Map<String, Object> params) {
-        List<RecipeDTO> res = new ArrayList<>();
+    public List<RecipeDto> findAll(Map<String, Object> params) {
+        List<RecipeDto> res = new ArrayList<>();
         RecipeRequestBuilder recipeRequestBuilder = recipeBuilderConverter.toRecipeRequestBuilder(params);
         if(params.isEmpty()){
             recipeRepository.findAll().forEach(recipeEntity ->{

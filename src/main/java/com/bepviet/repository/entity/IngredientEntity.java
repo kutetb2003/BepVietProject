@@ -1,4 +1,4 @@
-package com.bepviet.entity;
+package com.bepviet.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

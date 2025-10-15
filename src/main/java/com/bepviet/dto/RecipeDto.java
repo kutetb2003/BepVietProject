@@ -4,7 +4,7 @@ import com.bepviet.enums.Difficulty;
 import lombok.Data;
 
 @Data
-public class RecipeDTO {
+public class RecipeDto {
     private Long id;
     private String name;
     private String description;

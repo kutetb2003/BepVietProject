@@ -1,8 +1,7 @@
 package com.bepviet.repository.impl;
 
 import com.bepviet.builder.RecipeRequestBuilder;
-import com.bepviet.entity.RecipeEntity;
-import com.bepviet.repository.RecipeRepository;
+import com.bepviet.repository.entity.RecipeEntity;
 import com.bepviet.repository.custom.RecipeRepositoryCustom;
 import org.springframework.stereotype.Repository;
 

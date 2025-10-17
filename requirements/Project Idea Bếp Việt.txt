@@ -1,0 +1,175 @@
+Project Idea: "Bếp Việt" - A Vietnamese Cuisine & Recipe Platform
+Concept: A modern, beautiful web application for users to discover, share, and review authentic Vietnamese recipes. The platform will also feature a comprehensive, searchable directory of local Vietnamese restaurants, which can be managed by their owners.
+
+Why this is a great project:
+
+Engaging Theme: Food is universally appealing. The project is highly visual and centered on community content, making it fun to build and use.
+
+Real-World Complexity: It covers essential features like user-generated content, multi-role permissions (User, Manager, Admin), and content moderation.
+
+Rich Database Schema: The relationships between users, recipes, restaurants, and reviews provide excellent complexity for a portfolio project.
+
+Core Features
+1. User-Facing Site:
+
+Homepage: Featuring trending recipes, new restaurants, and featured cuisines.
+
+Recipe Browsing: A gallery page with filtering (by cuisine, difficulty, etc.) and search.
+
+Restaurant Directory: A searchable and filterable list of restaurants by city or region.
+
+Details Pages:
+
+Recipe Page: Ingredients, instructions, author info, and user reviews.
+
+Restaurant Page: Address, contact info, opening hours, photos, user reviews, and a list of their "specialty" recipes.
+
+User Contributions: Logged-in users can submit recipes and write reviews for both recipes and restaurants.
+
+User Authentication: Secure sign-up and login.
+
+Personalized Features: A "My Kitchen" page for users to see their submitted recipes and saved favorites.
+
+2. Manager Panel:
+
+Restaurant Profile Management: A dedicated dashboard for restaurant managers (ROLE_MANAGER) to update their restaurant's details (address, hours, photos).
+
+Specialty Recipe Management: Managers can link existing recipes from the platform to their restaurant's page, highlighting them as specialties.
+
+3. Admin Panel:
+
+Dashboard: Overview of new content (recipes, restaurant sign-ups, reviews).
+
+Content Management (CRUD): Full control over all recipes, cuisines, and restaurants.
+
+Content Moderation: Approve or reject user-submitted recipes and new restaurant listings.
+
+User Management: View and manage all users and their roles.
+
+Database Relation Complexity (The Core Challenge)
+This expanded model introduces new entities and relationships for restaurant management.
+
+Entities:
+
+User: Stores contributor and admin information.
+
+id (Primary Key)
+
+firstName, lastName, email (unique), password (hashed)
+
+bio (A short profile description)
+
+role (Enum: 'ROLE_USER', 'ROLE_MANAGER', 'ROLE_ADMIN')
+
+createdAt, updatedAt (Timestamps)
+
+Cuisine: Represents the category of a recipe.
+
+id (Primary Key), name (unique), description, imageUrl, region (Enum)
+
+Restaurant: A new entity for the restaurant directory.
+
+id (Primary Key)
+
+name, description, address, city, phoneNumber, websiteUrl
+
+openingHours (e.g., a simple Text field)
+
+imageUrls (List of strings)
+
+status (Enum: 'PENDING_APPROVAL', 'APPROVED', 'REJECTED')
+
+createdAt, updatedAt
+
+Relationship: Has a one-to-one relationship with a User who has ROLE_MANAGER.
+
+Recipe: The core recipe entity.
+
+id (Primary Key), title, description, instructions
+
+prepTimeInMinutes, cookTimeInMinutes, servings, difficulty (Enum)
+
+imageUrls (List of strings)
+
+status (Enum: 'PENDING_APPROVAL', 'PUBLISHED', 'REJECTED')
+
+createdAt, updatedAt
+
+Relationships: Belongs to one User (the author), one Cuisine, and can optionally belong to one Restaurant as a specialty.
+
+Ingredient: A master list of possible ingredients.
+
+id (Primary Key), name (unique)
+
+RecipeIngredient: Join table connecting a Recipe to an Ingredient.
+
+id (Primary Key), quantity, unit
+
+Relationships: Belongs to one Recipe and one Ingredient.
+
+Review: A review for a recipe.
+
+id (Primary Key), rating (1-5), comment, reviewDate
+
+Relationships: Belongs to one User and one Recipe.
+
+Restaurant Review: A new entity for restaurant reviews.
+
+id (Primary Key), rating (1-5), comment, reviewDate
+
+Relationships: Belongs to one User and one Restaurant.
+
+Key Relationships:
+
+User (1) <--> (1) Restaurant: A user with ROLE_MANAGER manages one Restaurant.
+
+User (1) <--> (*) Recipe: A user can author many recipes.
+
+User (1) <--> (*) Review / RestaurantReview: A user can write many reviews of either type.
+
+Restaurant (1) <--> (*) Recipe: A restaurant can feature many specialty recipes.
+
+Restaurant (1) <--> (*) RestaurantReview: A restaurant can have many reviews.
+
+Recipe (1) <--> (*) RecipeIngredient <--> (*) Ingredient: The core many-to-many relationship for ingredients.
+
+Step-by-Step Development Roadmap
+The roadmap is extended with a new phase to handle the restaurant functionality.
+
+Phase 1-3: (Same as before)
+
+Phase 1: Backend Foundation: Set up the project, database, and initial entities (Recipe, Cuisine, User). Build public APIs.
+
+Phase 2: Frontend - Recipe Display: Build the React components to display recipes.
+
+Phase 3: User Authentication: Implement JWT-based registration and login for all user roles.
+
+Phase 4: User Contributions (Recipes)
+
+Frontend: Build a "Submit Recipe" form.
+
+Backend: Create a secured endpoint for authenticated users to submit recipes (PENDING_APPROVAL status).
+
+Frontend: Build the "My Kitchen" page.
+
+Phase 5: Restaurant Directory
+
+Backend: Create the Restaurant and RestaurantReview entities and repositories. Create public APIs to fetch restaurant data.
+
+Frontend: Build a RestaurantDirectoryPage with search/filter capabilities and a RestaurantDetailPage.
+
+Backend/Frontend: Implement the ability for users to submit reviews for restaurants.
+
+Phase 6: Manager & Admin Panels
+
+Backend:
+
+Create a registration process for restaurant managers that creates a User with ROLE_MANAGER and a Restaurant with PENDING_APPROVAL status.
+
+Create secured endpoints for managers to update their own restaurant profile.
+
+Frontend:
+
+Build a protected /manager section for restaurant owners.
+
+Build a protected /admin section for admins to approve/reject new restaurants and recipes.

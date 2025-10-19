@@ -7,6 +7,6 @@ public class RestaurantDto {
     private String name;
     private String address;
     private String phoneNumber;
-    private Double rating;
+    private Double averageRating;
     private String managerName;
 }

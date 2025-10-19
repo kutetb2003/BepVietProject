@@ -12,7 +12,7 @@ public class RestaurantBuilderConverter {
         return RestaurantRequestBuilder.builder()
                 .name(MapUtil.getObject(params, "name", String.class))
                 .phoneNumber(MapUtil.getObject(params,"phoneNumber", String.class))
-                .rating(MapUtil.getObject(params,"rating", Double.class))
+                .averageRating(MapUtil.getObject(params,"averageRating", Double.class))
                 .managerName(MapUtil.getObject(params,"managerName", String.class))
                 .build();
     }

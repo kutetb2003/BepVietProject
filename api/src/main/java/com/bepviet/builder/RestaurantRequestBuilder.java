@@ -8,6 +8,6 @@ import lombok.Getter;
 public class RestaurantRequestBuilder {
     private String name;
     private String phoneNumber;
-    private Double rating;
+    private Double averageRating;
     private String managerName;
 }

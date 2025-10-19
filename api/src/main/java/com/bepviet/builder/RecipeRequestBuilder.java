@@ -9,4 +9,5 @@ import lombok.Getter;
 public class RecipeRequestBuilder {
     private String name;
     private Difficulty difficulty;
+    private Double averageRating;
 }

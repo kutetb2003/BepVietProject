@@ -32,7 +32,7 @@ public class RecipeServiceImpl implements RecipeService {
             });
         }
         else{
-            recipeRepository.findDistinctByNameOrDifficulty(recipeRequestBuilder.getName(), recipeRequestBuilder.getDifficulty()).forEach(
+            recipeRepository.findDistinctByNameOrDifficultyOrAverageRatingGreaterThanEqual(recipeRequestBuilder.getName(), recipeRequestBuilder.getDifficulty(), recipeRequestBuilder.getAverageRating()).forEach(
                     recipeEntity -> {
                         res.add(entityToDtoConverter.convertToDto(recipeEntity, RecipeDto.class));
                     }

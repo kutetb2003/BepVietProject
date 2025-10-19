@@ -32,9 +32,10 @@ public class RestaurantServiceImpl implements RestaurantService {
             });
         }
         else {
-            restaurantRepository.findDistinctByNameContainingIgnoreCaseOrPhoneNumberContaining(
+            restaurantRepository.findDistinctByNameContainingIgnoreCaseOrPhoneNumberContainingOrAverageRatingGreaterThanEqual(
                     restaurantRequestBuilder.getName(),
-                    restaurantRequestBuilder.getPhoneNumber()
+                    restaurantRequestBuilder.getPhoneNumber(),
+                    restaurantRequestBuilder.getAverageRating()
             ).forEach(restaurantEntity -> {
                 res.add(entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class));
             });

@@ -9,13 +9,16 @@ public class MapUtil {
             if(clazz.isEnum()){
                 object = Enum.valueOf((Class<Enum>) clazz, object.toString().toUpperCase());
             }
-            else if(object.getClass().getTypeName().equals("java.lang.Long")){
+            else if(clazz.getTypeName().equals("java.lang.Long")){
                 object = Long.valueOf(object.toString());
             }
-            else if(object.getClass().getTypeName().equals("java.lang.Integer")){
+            else if(clazz.getTypeName().equals("java.lang.Integer")){
                 object = Integer.valueOf(object.toString());
             }
-            else if(object.getClass().getTypeName().equals("java.lang.String")){
+            else if (clazz.getTypeName().equals("java.lang.Double")){
+                object = (object != "" ? Double.valueOf(object.toString()) : null);
+            }
+            else if(clazz.getTypeName().equals("java.lang.String")){
                 object = String.valueOf(object);
             }
             return clazz.cast(object);

@@ -4,7 +4,9 @@ import com.bepviet.builder.RecipeRequestBuilder;
 import com.bepviet.converter.EntityToDtoConverter;
 import com.bepviet.converter.RecipeBuilderConverter;
 import com.bepviet.dto.RecipeDto;
+import com.bepviet.dto.ReviewDto;
 import com.bepviet.repository.RecipeRepository;
+import com.bepviet.repository.entity.ReviewEntity;
 import com.bepviet.service.RecipeService;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +30,23 @@ public class RecipeServiceImpl implements RecipeService {
         RecipeRequestBuilder recipeRequestBuilder = recipeBuilderConverter.toRecipeRequestBuilder(params);
         if(params.isEmpty()){
             recipeRepository.findAll().forEach(recipeEntity ->{
-                res.add(entityToDtoConverter.convertToDto(recipeEntity, RecipeDto.class));
+                List<ReviewDto> reviewDtoList = entityToDtoConverter.convertToDtoList(recipeEntity.getReviewEntities(), ReviewDto.class);
+                List<String> ingredients = recipeEntity.getIngredientEntities().stream().map(ingredientEntity -> ingredientEntity.getName()).toList();
+                RecipeDto recipeDto = entityToDtoConverter.convertToDto(recipeEntity, RecipeDto.class);
+                recipeDto.setReviews(reviewDtoList);
+                recipeDto.setIngredientList(ingredients);
+                res.add(recipeDto);
             });
         }
         else{
             recipeRepository.findDistinctByNameOrDifficultyOrAverageRatingGreaterThanEqual(recipeRequestBuilder.getName(), recipeRequestBuilder.getDifficulty(), recipeRequestBuilder.getAverageRating()).forEach(
                     recipeEntity -> {
-                        res.add(entityToDtoConverter.convertToDto(recipeEntity, RecipeDto.class));
+                        List<ReviewDto> reviewDtoList = entityToDtoConverter.convertToDtoList(recipeEntity.getReviewEntities(), ReviewDto.class);
+                        List<String> ingredients = recipeEntity.getIngredientEntities().stream().map(ingredientEntity -> ingredientEntity.getName()).toList();
+                        RecipeDto recipeDto = entityToDtoConverter.convertToDto(recipeEntity, RecipeDto.class);
+                        recipeDto.setReviews(reviewDtoList);
+                        recipeDto.setIngredientList(ingredients);
+                        res.add(recipeDto);
                     }
             );
 

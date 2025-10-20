@@ -4,7 +4,9 @@ import com.bepviet.builder.RestaurantRequestBuilder;
 import com.bepviet.converter.EntityToDtoConverter;
 import com.bepviet.converter.RestaurantBuilderConverter;
 import com.bepviet.dto.RestaurantDto;
+import com.bepviet.dto.ReviewDto;
 import com.bepviet.repository.RestaurantRepository;
+import com.bepviet.repository.entity.ReviewEntity;
 import com.bepviet.service.RestaurantService;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         RestaurantRequestBuilder restaurantRequestBuilder = restaurantBuilderConverter.restaurantRequestBuilder(params);
         if(params.isEmpty()) {
             restaurantRepository.findAll().forEach(restaurantEntity -> {
-                res.add(entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class));
+                List<ReviewDto> reviewDtos = entityToDtoConverter.convertToDtoList(restaurantEntity.getReviewEntities(), ReviewDto.class);
+                RestaurantDto restaurantDto = entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class);
+                restaurantDto.setReviews(reviewDtos);
+                res.add(restaurantDto);
             });
         }
         else {
@@ -37,7 +42,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                     restaurantRequestBuilder.getPhoneNumber(),
                     restaurantRequestBuilder.getAverageRating()
             ).forEach(restaurantEntity -> {
-                res.add(entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class));
+                List<ReviewDto> reviewDtos = entityToDtoConverter.convertToDtoList(restaurantEntity.getReviewEntities(), ReviewDto.class);
+                RestaurantDto restaurantDto = entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class);
+                restaurantDto.setReviews(reviewDtos);
+                res.add(restaurantDto);
             });
         }
         return res;

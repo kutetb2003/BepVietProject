@@ -3,6 +3,7 @@ package com.bepviet.repository.entity;
 import com.bepviet.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Formula;
 
 import java.util.List;
 
@@ -36,6 +37,9 @@ import java.util.List;
     @OneToMany(mappedBy = "userEntity")
     private List<RecipeEntity> recipeEntityList;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private List<ReviewEntity> reviewEntities;
+
+    @Formula("concat(first_name, ' ', last_name)")
+    private String fullName;
 }

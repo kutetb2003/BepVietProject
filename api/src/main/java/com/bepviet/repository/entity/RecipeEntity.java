@@ -37,4 +37,14 @@ public class RecipeEntity extends ContentEntity {
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
     private Set<IngredientEntity> ingredientEntities = new HashSet<>();
+
+    @Transient
+    private String creatorName;
+
+    @PostLoad
+    private void onLoadCreatorName(){
+        if(this.userEntity != null){
+            this.creatorName = this.userEntity.getFullName();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.bepviet.repository.impl;
+package com.bepviet.repository.custom.impl;
 
 import com.bepviet.builder.RecipeRequestBuilder;
 import com.bepviet.repository.entity.RecipeEntity;

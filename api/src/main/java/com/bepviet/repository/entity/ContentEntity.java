@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Formula;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "content")

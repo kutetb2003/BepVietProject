@@ -1,13 +1,13 @@
 package com.bepviet.builder;
 
-import com.bepviet.enums.Difficulty;
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
 @Getter
-public class RecipeRequestBuilder {
+public class RestaurantRequestBuilder {
     private String name;
-    private Difficulty difficulty;
+    private String phoneNumber;
     private Double averageRating;
+    private String managerName;
 }

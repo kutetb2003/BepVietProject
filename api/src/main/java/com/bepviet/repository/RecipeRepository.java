@@ -7,5 +7,5 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.List;
 
 public interface RecipeRepository extends ListCrudRepository<RecipeEntity, Long>{
-    List<RecipeEntity> findDistinctByNameOrDifficulty(String name, Difficulty difficulty);
+    List<RecipeEntity> findDistinctByNameOrDifficultyOrAverageRatingGreaterThanEqual(String name, Difficulty difficulty, Double averageRating);
 }

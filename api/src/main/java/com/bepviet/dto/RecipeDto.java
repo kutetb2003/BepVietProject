@@ -2,11 +2,15 @@ package com.bepviet.dto;
 
 import com.bepviet.enums.Difficulty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.List;
+
 
 @Data
-public class RecipeDto {
-    private Long id;
-    private String name;
-    private String description;
+@EqualsAndHashCode(callSuper = true)
+public class RecipeDto extends ContentDto {
     private Difficulty difficulty;
+    private String creatorName;
+    private List<String> ingredientList;
 }

@@ -23,7 +23,7 @@ import java.util.Objects;
     private String name;
 
     @OneToMany(mappedBy = "contentEntity")
-    private List<ImageEntity> imageEntityList;
+    private List<ImageEntity> imageEntities;
 
     @OneToMany(mappedBy ="contentEntity", fetch = FetchType.LAZY)
     private List<ReviewEntity> reviewEntities;

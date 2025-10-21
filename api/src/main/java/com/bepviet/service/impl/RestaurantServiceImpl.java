@@ -9,7 +9,8 @@ import com.bepviet.repository.RestaurantRepository;
 import com.bepviet.repository.entity.ReviewEntity;
 import com.bepviet.service.RestaurantService;
 import org.springframework.stereotype.Service;
-
+import com.bepviet.repository.entity.RestaurantEntity;
+import com.bepviet.dto.ImageDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +31,8 @@ public class RestaurantServiceImpl implements RestaurantService {
         RestaurantRequestBuilder restaurantRequestBuilder = restaurantBuilderConverter.restaurantRequestBuilder(params);
         if(params.isEmpty()) {
             restaurantRepository.findAll().forEach(restaurantEntity -> {
-                List<ReviewDto> reviewDtos = entityToDtoConverter.convertToDtoList(restaurantEntity.getReviewEntities(), ReviewDto.class);
-                RestaurantDto restaurantDto = entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class);
-                restaurantDto.setReviews(reviewDtos);
-                res.add(restaurantDto);
+
+                res.add(finalizeRestaurant(restaurantEntity));
             });
         }
         else {
@@ -42,12 +41,17 @@ public class RestaurantServiceImpl implements RestaurantService {
                     restaurantRequestBuilder.getPhoneNumber(),
                     restaurantRequestBuilder.getAverageRating()
             ).forEach(restaurantEntity -> {
-                List<ReviewDto> reviewDtos = entityToDtoConverter.convertToDtoList(restaurantEntity.getReviewEntities(), ReviewDto.class);
-                RestaurantDto restaurantDto = entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class);
-                restaurantDto.setReviews(reviewDtos);
-                res.add(restaurantDto);
+                res.add(finalizeRestaurant(restaurantEntity));
             });
         }
         return res;
+    }
+    public RestaurantDto finalizeRestaurant(RestaurantEntity restaurantEntity){
+        List<ReviewDto> reviewDtos = entityToDtoConverter.convertToDtoList(restaurantEntity.getReviewEntities(), ReviewDto.class);
+        List<ImageDto> imageDtoList = entityToDtoConverter.convertToDtoList(restaurantEntity.getImageEntities(), ImageDto.class);
+        RestaurantDto restaurantDto = entityToDtoConverter.convertToDto(restaurantEntity, RestaurantDto.class);
+        restaurantDto.setReviews(reviewDtos);
+        restaurantDto.setImages(imageDtoList);
+        return restaurantDto;
     }
 }

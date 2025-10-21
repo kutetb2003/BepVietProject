@@ -11,4 +11,5 @@ public class ContentDto {
     private String description;
     private Double averageRating;
     private List<ReviewDto> reviews;
+    private List<ImageDto> images;
 }

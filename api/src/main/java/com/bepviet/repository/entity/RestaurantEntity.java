@@ -17,7 +17,7 @@ public class RestaurantEntity extends ContentEntity{
 
     @Column(name = "phone_number")
     private String phoneNumber;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="manager_id", referencedColumnName = "id")
     private UserEntity userEntity;
 

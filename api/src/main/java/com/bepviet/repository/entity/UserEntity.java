@@ -4,13 +4,12 @@ import com.bepviet.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Formula;
-
 import java.util.List;
 
 @Entity
 @Table(name = "user")
 
-@Data public class UserEntity {
+@Data public class UserEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +30,8 @@ import java.util.List;
     @Column(name="password")
     private String password;
 
-    @OneToOne(mappedBy = "userEntity")
-    private RestaurantEntity restaurantEntity;
+    @OneToMany(mappedBy = "userEntity")
+    private List<RestaurantEntity> restaurantEntity;
 
     @OneToMany(mappedBy = "userEntity")
     private List<RecipeEntity> recipeEntityList;
@@ -42,4 +41,5 @@ import java.util.List;
 
     @Formula("concat(first_name, ' ', last_name)")
     private String fullName;
+
 }

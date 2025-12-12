@@ -27,4 +27,7 @@ public class EntityToDtoConverter {
                 .map(source -> convertToDto(source, targetClass))
                 .collect(Collectors.toList());
     }
+    public <S, T> T convertToEntity(S source, Class<T> targetClass){
+        return modelMapper.map(source, targetClass);
+    }
 }

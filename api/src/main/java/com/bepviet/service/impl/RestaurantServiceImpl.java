@@ -5,6 +5,7 @@ import com.bepviet.converter.EntityToDtoConverter;
 import com.bepviet.converter.RestaurantBuilderConverter;
 import com.bepviet.dto.RestaurantDto;
 import com.bepviet.dto.ReviewDto;
+import com.bepviet.dto.request.RestaurantRequest;
 import com.bepviet.repository.RestaurantRepository;
 import com.bepviet.repository.entity.ReviewEntity;
 import com.bepviet.service.RestaurantService;
@@ -46,6 +47,18 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
         return res;
     }
+
+    @Override
+    public void createNewRestaurant(RestaurantRequest restaurantRequest) {
+        RestaurantEntity restaurantEntity = entityToDtoConverter.convertToEntity(restaurantRequest, RestaurantEntity.class);
+        restaurantRepository.save(restaurantEntity);
+    }
+
+    @Override
+    public void updateRestaurant(RestaurantRequest restaurantRequest) {
+
+    }
+
     public RestaurantDto finalizeRestaurant(RestaurantEntity restaurantEntity){
         List<ReviewDto> reviewDtos = entityToDtoConverter.convertToDtoList(restaurantEntity.getReviewEntities(), ReviewDto.class);
         List<ImageDto> imageDtoList = entityToDtoConverter.convertToDtoList(restaurantEntity.getImageEntities(), ImageDto.class);
